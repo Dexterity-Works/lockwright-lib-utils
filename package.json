@@ -3,7 +3,7 @@
   "version": "0.0.10",
   "type": "module",
   "description": "A library to validate user input",
-  "main": "src/index.js",
+  "main": "src/validator/index.js",
   "license": "Apache-2.0",
   "scripts": {
     "lint": "eslint .",
