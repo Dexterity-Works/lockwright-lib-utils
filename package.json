@@ -1,23 +1,24 @@
 {
-  "name": "lockwright-utils-validator",
-  "version": "0.0.10",
+  "name": "lockwright-lib-utils",
+  "version": "0.1.0",
   "type": "module",
-  "description": "A library to validate user input",
-  "main": "src/validator/index.js",
+  "description": "Small shared utils for Lockwright: unique IDs, password check and generator, QR, validator",
   "license": "Apache-2.0",
+  "exports": {
+    "./generate-unique-id": "./src/generate-unique-id/index.js",
+    "./password-check": "./src/password-check/index.js",
+    "./password-generator": "./src/password-generator/index.js",
+    "./qr": "./src/qr/index.js",
+    "./validator": "./src/validator/index.js",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "jest"
   },
-  "devDependencies": {
-    "@babel/core": "^7.26.10",
-    "@babel/preset-env": "^7.26.9",
-    "@tetherto/tether-dev-docs": "github:tetherto/tether-dev-docs",
-    "babel-jest": "^29.7.0",
-    "eslint": "^9.39.4",
-    "husky": "^9.1.7",
-    "jest": "^29.7.0"
+  "dependencies": {
+    "qrcode": "1.5.4"
   },
   "peerDependencies": {
     "expo-crypto": "~13.0.0"
@@ -27,7 +28,13 @@
       "optional": true
     }
   },
-  "dependencies": {
-    "qrcode": "1.5.4"
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "@tetherto/tether-dev-docs": "github:Dexterity-Works/tether-dev-docs",
+    "babel-jest": "^29.7.0",
+    "eslint": "^9.39.4",
+    "husky": "^9.1.7",
+    "jest": "^29.7.0"
   }
 }

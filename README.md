@@ -1,84 +1,59 @@
-# lockwright-utils-validator
+# lockwright-lib-utils
 
-A lightweight and flexible JavaScript library for validating. It provides a simple API to define validation rules for various data types, including strings, numbers, arrays, and objects.
+Small shared utils for Lockwright apps and libraries. Plain ESM source, no build step.
 
 Site: [lockwright.dexterity.works](https://lockwright.dexterity.works)
 
 Community fork of PearPass (Apache 2.0). Not affiliated with or endorsed by Tether Data or the Pears project.
 
-## Table of Contents
+## Subpaths
 
-- [Table of Contents](#table-of-contents)
-- [Features](#features)
-- [Security Notice](#security-notice)
-- [Installation](#installation)
-- [Usage Examples](#usage-examples)
-- [Dependencies](#dependencies)
-- [Related Projects](#related-projects)
+Import by subpath. There is no root export, so a bundler that does not tree-shake (Metro) only pulls in the util you use.
 
-## Features
+| Import | Exports |
+| --- | --- |
+| `lockwright-lib-utils/generate-unique-id` | `generateUniqueId` |
+| `lockwright-lib-utils/password-check` | `checkPasswordStrength`, `checkPassphraseStrength`, `constantTimeHashCompare`, `validatePasswordChange`, `PASSWORD_STRENGTH` |
+| `lockwright-lib-utils/password-generator` | `generatePassword`, `generatePassphrase` |
+| `lockwright-lib-utils/qr` | `generateQRCodeSVG` |
+| `lockwright-lib-utils/validator` | `Validator` |
 
-- Validate strings, numbers, arrays, and objects.
-- Built-in validation rules like `required`, `minLength`, `maxLength`, `min`, `max`, `email`, and more.
-- Custom validation with `refine`.
-- Schema-based validation for objects and arrays.
-- Lightweight and easy to use.
+```js
+import { Validator } from 'lockwright-lib-utils/validator'
 
-## Security Notice
+Validator.string().required().minLength(3).validate('ab') // "Minimum length is 3"
+```
 
-The package name is `lockwright-utils-validator`.
+`generate-unique-id` and `password-generator` ship `.native.js` files that Metro picks on React Native. They use `expo-crypto` there, an optional peer dependency. `qr` depends on `qrcode`.
 
-## Installation
+## Install
 
-Install the library using npm:
+Add it as a git dependency pinned by commit:
+
+```json
+"lockwright-lib-utils": "git+https://github.com/Dexterity-Works/lockwright-lib-utils.git#<commit sha>"
+```
+
+The package runs no install scripts.
+
+## Develop
+
 ```bash
-npm install git+https://github.com/Dexterity-Works/lockwright-utils-validator.git
+npm ci
+npm run lint
+npm test
 ```
 
-## Usage Examples
+## History
 
-### String Validation
-```js
-import { Validator } from 'lockwright-utils-validator';
+This package absorbed five former repos, now archived with their history:
 
-const validator = Validator.string().required().minLength(3);
-console.log(validator.validate('')); // Output: "This field is required"
-console.log(validator.validate('ab')); // Output: "Minimum length is 3"
-console.log(validator.validate('abc')); // Output: null
-```
-
-### Object Validation
-```js
-const schema = {
-    name: Validator.string().required(),
-    age: Validator.number().min(18),
-};
-
-const validator = Validator.object(schema);
-console.log(validator.validate({ name: '', age: 16 })); 
-// Output: { name: "This field is required", age: "Minimum value is 18" }
-```
-
-### Array Validation
-```js
-const itemValidator = Validator.string().minLength(3);
-const arrayValidator = Validator.array().items(itemValidator);
-
-console.log(arrayValidator.validate(['valid', 'a'])); 
-// Output: [{ index: 1, error: "Minimum length is 3" }]
-```
-
-## Dependencies
-
-This package has no production dependencies.
-
-## Related Projects
-
-- [lockwright-app-mobile](https://github.com/Dexterity-Works/lockwright-app-mobile) - Lockwright for mobile
-- [lockwright-app-desktop](https://github.com/Dexterity-Works/lockwright-app-desktop) - Lockwright for desktop
-- [lockwright-lib-vault](https://github.com/Dexterity-Works/lockwright-lib-vault) - Lockwright vault library
-- [tether-dev-docs](https://github.com/Dexterity-Works/tether-dev-docs) - Documentations and guides for developers
+- `lockwright-utils-generate-unique-id`
+- `lockwright-utils-password-check`
+- `lockwright-utils-password-generator`
+- `lockwright-utils-qr`
+- `lockwright-utils-validator` (this repo, renamed)
 
 ## License
 
-This project is licensed under the Apache License, Version 2.0. See the [LICENSE](./LICENSE) file for details.k
+Apache License, Version 2.0. See [LICENSE](./LICENSE.md) and [NOTICE](./NOTICE.md).
