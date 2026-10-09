@@ -107,11 +107,19 @@ describe('Validator', () => {
     test('website should validate website format', () => {
       const validator = Validator.string().website('Invalid website')
 
-      addHttps.mockReturnValueOnce('https://invalid')
-      expect(validator.validate('invalid')).toBe('Invalid website')
+      addHttps.mockReturnValueOnce('http://')
+      expect(validator.validate('::')).toBe('Invalid website')
+
+      addHttps.mockReturnValueOnce('http://localhost')
+      expect(validator.validate('localhost')).toBeNull()
+
+      addHttps.mockReturnValueOnce('http://localhost:5173/en/login')
+      expect(validator.validate('http://localhost:5173/en/login')).toBeNull()
 
       addHttps.mockReturnValueOnce('https://example.com')
       expect(validator.validate('example.com')).toBeNull()
+
+      expect(validator.validate('')).toBeNull()
     })
 
     test('numeric should validate if string is numeric', () => {

@@ -98,11 +98,7 @@ export class Validator {
       }
 
       try {
-        const parsed = new URL(addHttps(value))
-
-        if (!parsed.hostname.includes('.')) {
-          return message
-        }
+        new URL(addHttps(value))
 
         return null
       } catch {
