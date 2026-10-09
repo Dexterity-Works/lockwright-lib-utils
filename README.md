@@ -46,7 +46,7 @@ npm test
 
 ## History
 
-This package absorbed five former repos, now archived with their history. As separate repos they meant up to five commit pins in every Lockwright app and library. They only ever changed together, and two of those pins had already drifted apart. One package means one pin per app.
+This package absorbed five former repos. The validator repo was renamed to this one; the other four are archived with their history. As separate repos they meant up to five commit pins in every Lockwright app and library. They only ever changed together, and two of those pins had already drifted apart. One package means one pin per app.
 
 - `lockwright-utils-generate-unique-id`
 - `lockwright-utils-password-check`
